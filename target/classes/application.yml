@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    # 1. URL CORREGIDA: Debe ser JDBC, no HTTPS
+    url: jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:6543/postgres?prepareThreshold=0
+    username: postgres.mkohszohtmuetvozyeep
+    # 2. PASSWORD: Asegúrate de que esta sea la contraseña que pusiste al crear la DB, no el token JWT
+    password: wVWhSkP7!iZeu3J
+    driver-class-name: org.postgresql.Driver
+    # 3. POOL UNIFICADO: Hikari debe ir dentro del mismo bloque de datasource
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: none  
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        default_schema: public
+        format_sql: true
+        temp.use_jdbc_metadata_defaults: false
+
+server:
+  port: 8083
+
+# --- JWT (Asegúrate de que tu JwtService lea 'jwt.secret' o 'application.security.jwt.secret') ---
+jwt:
+  secret: eiPyNgEY066n9akOQr3mfR+06ARP5tsbmf87f6+JXRA=
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+logging:
+  level:
+    com.app.auth: DEBUG
+    org.springframework.security: INFO
